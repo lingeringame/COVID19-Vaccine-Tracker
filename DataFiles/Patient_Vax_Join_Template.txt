@@ -1,0 +1,5 @@
+select First_name,Last_name,Date_of_birth,City,PPRLs.PPRL_Number as PPRL,
+vr.Vaccine_Event_id, vr.Administration_Date, vr.Dose_Number, vr.Admin_City, vr.Admin_State
+from Patients as patientInfo  join PPRLs Pprls
+	on patientInfo.Id = PPRLs.Patient_Id
+	 join Vaccine_Records vr on PPRLs.PPRL_Number = vr.PPRL;
