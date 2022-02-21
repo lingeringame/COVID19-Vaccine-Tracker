@@ -37,15 +37,12 @@ namespace Covid_Vaccine_Tracker.UI
             this.UpdatePatientItem = new System.Windows.Forms.ToolStripMenuItem();
             this.VaccineRecordItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ViewItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.AddBtn = new System.Windows.Forms.Button();
-            this.UpdateBtn = new System.Windows.Forms.Button();
-            this.ClearBtn = new System.Windows.Forms.Button();
-            this.ExitBtn = new System.Windows.Forms.Button();
             this.ErrorPv = new System.Windows.Forms.ErrorProvider(this.components);
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.ExtractTxt = new System.Windows.Forms.TextBox();
             this.Race2Cbx = new System.Windows.Forms.ComboBox();
             this.patientGB = new System.Windows.Forms.GroupBox();
+            this.DOBpicker = new System.Windows.Forms.DateTimePicker();
             this.StatesCbx = new System.Windows.Forms.ComboBox();
             this.label15 = new System.Windows.Forms.Label();
             this.SexCbx = new System.Windows.Forms.ComboBox();
@@ -73,15 +70,14 @@ namespace Covid_Vaccine_Tracker.UI
             this.label2 = new System.Windows.Forms.Label();
             this.FnameTxt = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.DOBpicker = new System.Windows.Forms.DateTimePicker();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+            this.AddBtn = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
+            this.UpdateBtn = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
+            this.ClearBtn = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripButton4 = new System.Windows.Forms.ToolStripButton();
+            this.ExitBtn = new System.Windows.Forms.ToolStripButton();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ErrorPv)).BeginInit();
             this.patientGB.SuspendLayout();
@@ -110,6 +106,7 @@ namespace Covid_Vaccine_Tracker.UI
             this.NewPatientItem,
             this.UpdatePatientItem,
             this.VaccineRecordItem});
+            this.MaintenanceItem.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.MaintenanceItem.Name = "MaintenanceItem";
             this.MaintenanceItem.Size = new System.Drawing.Size(111, 24);
             this.MaintenanceItem.Text = "Maintenance";
@@ -146,54 +143,6 @@ namespace Covid_Vaccine_Tracker.UI
             this.ViewItem.Text = "View";
             this.ViewItem.ToolTipText = "View Vaccine Records";
             this.ViewItem.Click += new System.EventHandler(this.ViewItem_Click);
-            // 
-            // AddBtn
-            // 
-            this.AddBtn.Enabled = false;
-            this.AddBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.AddBtn.Location = new System.Drawing.Point(149, 406);
-            this.AddBtn.Name = "AddBtn";
-            this.AddBtn.Size = new System.Drawing.Size(107, 30);
-            this.AddBtn.TabIndex = 2;
-            this.AddBtn.Text = "Add";
-            this.AddBtn.UseVisualStyleBackColor = true;
-            this.AddBtn.Click += new System.EventHandler(this.AddBtn_Click);
-            // 
-            // UpdateBtn
-            // 
-            this.UpdateBtn.Enabled = false;
-            this.UpdateBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.UpdateBtn.Location = new System.Drawing.Point(342, 406);
-            this.UpdateBtn.Name = "UpdateBtn";
-            this.UpdateBtn.Size = new System.Drawing.Size(107, 30);
-            this.UpdateBtn.TabIndex = 3;
-            this.UpdateBtn.Text = "Update";
-            this.UpdateBtn.UseVisualStyleBackColor = true;
-            this.UpdateBtn.Click += new System.EventHandler(this.UpdateBtn_Click);
-            // 
-            // ClearBtn
-            // 
-            this.ClearBtn.Enabled = false;
-            this.ClearBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ClearBtn.Location = new System.Drawing.Point(535, 406);
-            this.ClearBtn.Name = "ClearBtn";
-            this.ClearBtn.Size = new System.Drawing.Size(107, 30);
-            this.ClearBtn.TabIndex = 4;
-            this.ClearBtn.Text = "Clear";
-            this.ClearBtn.UseVisualStyleBackColor = true;
-            this.ClearBtn.Click += new System.EventHandler(this.ClearBtn_Click);
-            // 
-            // ExitBtn
-            // 
-            this.ExitBtn.Enabled = false;
-            this.ExitBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ExitBtn.Location = new System.Drawing.Point(728, 406);
-            this.ExitBtn.Name = "ExitBtn";
-            this.ExitBtn.Size = new System.Drawing.Size(107, 30);
-            this.ExitBtn.TabIndex = 5;
-            this.ExitBtn.Text = "Exit";
-            this.ExitBtn.UseVisualStyleBackColor = true;
-            this.ExitBtn.Click += new System.EventHandler(this.ExitBtn_Click);
             // 
             // ErrorPv
             // 
@@ -261,13 +210,23 @@ namespace Covid_Vaccine_Tracker.UI
             this.patientGB.Controls.Add(this.FnameTxt);
             this.patientGB.Controls.Add(this.label1);
             this.patientGB.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.patientGB.Location = new System.Drawing.Point(24, 77);
+            this.patientGB.Location = new System.Drawing.Point(26, 79);
             this.patientGB.Name = "patientGB";
             this.patientGB.Size = new System.Drawing.Size(943, 310);
             this.patientGB.TabIndex = 1;
             this.patientGB.TabStop = false;
             this.patientGB.Text = "Patient Information";
             this.patientGB.Visible = false;
+            // 
+            // DOBpicker
+            // 
+            this.DOBpicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.DOBpicker.Location = new System.Drawing.Point(674, 126);
+            this.DOBpicker.Name = "DOBpicker";
+            this.DOBpicker.ShowUpDown = true;
+            this.DOBpicker.Size = new System.Drawing.Size(112, 24);
+            this.DOBpicker.TabIndex = 11;
+            this.DOBpicker.Value = new System.DateTime(1960, 11, 19, 0, 0, 0, 0);
             // 
             // StatesCbx
             // 
@@ -510,102 +469,95 @@ namespace Covid_Vaccine_Tracker.UI
             this.label1.TabIndex = 1;
             this.label1.Text = "Patient Id";
             // 
-            // DOBpicker
-            // 
-            this.DOBpicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.DOBpicker.Location = new System.Drawing.Point(674, 126);
-            this.DOBpicker.Name = "DOBpicker";
-            this.DOBpicker.ShowUpDown = true;
-            this.DOBpicker.Size = new System.Drawing.Size(112, 24);
-            this.DOBpicker.TabIndex = 11;
-            this.DOBpicker.Value = new System.DateTime(1899, 11, 19, 0, 0, 0, 0);
-            // 
             // toolStrip1
             // 
             this.toolStrip1.BackColor = System.Drawing.SystemColors.Control;
             this.toolStrip1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripButton1,
+            this.AddBtn,
             this.toolStripSeparator1,
-            this.toolStripButton2,
+            this.UpdateBtn,
             this.toolStripSeparator2,
-            this.toolStripButton3,
+            this.ClearBtn,
             this.toolStripSeparator3,
-            this.toolStripButton4});
+            this.ExitBtn});
             this.toolStrip1.Location = new System.Drawing.Point(0, 28);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(994, 27);
             this.toolStrip1.TabIndex = 6;
             this.toolStrip1.Text = "toolStrip1";
             // 
-            // toolStripButton1
+            // AddBtn
             // 
-            this.toolStripButton1.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
-            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(57, 24);
-            this.toolStripButton1.Text = "Add";
-            this.toolStripButton1.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
-            this.toolStripButton1.ToolTipText = "Add patient";
+            this.AddBtn.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AddBtn.Image = ((System.Drawing.Image)(resources.GetObject("AddBtn.Image")));
+            this.AddBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.AddBtn.Name = "AddBtn";
+            this.AddBtn.Size = new System.Drawing.Size(57, 24);
+            this.AddBtn.Text = "Add";
+            this.AddBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
+            this.AddBtn.ToolTipText = "Add patient";
+            this.AddBtn.Click += new System.EventHandler(this.AddBtn_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(6, 27);
             // 
-            // toolStripButton2
+            // UpdateBtn
             // 
-            this.toolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
-            this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton2.Name = "toolStripButton2";
-            this.toolStripButton2.Size = new System.Drawing.Size(71, 24);
-            this.toolStripButton2.Text = "Update";
-            this.toolStripButton2.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
-            this.toolStripButton2.ToolTipText = "Update patient";
+            this.UpdateBtn.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.UpdateBtn.Image = ((System.Drawing.Image)(resources.GetObject("UpdateBtn.Image")));
+            this.UpdateBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.UpdateBtn.Name = "UpdateBtn";
+            this.UpdateBtn.Size = new System.Drawing.Size(78, 24);
+            this.UpdateBtn.Text = "Update";
+            this.UpdateBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
+            this.UpdateBtn.ToolTipText = "Update patient";
+            this.UpdateBtn.Click += new System.EventHandler(this.UpdateBtn_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(6, 27);
             // 
-            // toolStripButton3
+            // ClearBtn
             // 
-            this.toolStripButton3.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton3.Image")));
-            this.toolStripButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton3.Name = "toolStripButton3";
-            this.toolStripButton3.Size = new System.Drawing.Size(58, 24);
-            this.toolStripButton3.Text = "Clear";
-            this.toolStripButton3.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
-            this.toolStripButton3.ToolTipText = "Clear form";
+            this.ClearBtn.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ClearBtn.Image = ((System.Drawing.Image)(resources.GetObject("ClearBtn.Image")));
+            this.ClearBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.ClearBtn.Name = "ClearBtn";
+            this.ClearBtn.Size = new System.Drawing.Size(63, 24);
+            this.ClearBtn.Text = "Clear";
+            this.ClearBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
+            this.ClearBtn.ToolTipText = "Clear form";
+            this.ClearBtn.Click += new System.EventHandler(this.ClearBtn_Click);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
             this.toolStripSeparator3.Size = new System.Drawing.Size(6, 27);
             // 
-            // toolStripButton4
+            // ExitBtn
             // 
-            this.toolStripButton4.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton4.Image")));
-            this.toolStripButton4.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton4.Name = "toolStripButton4";
-            this.toolStripButton4.Size = new System.Drawing.Size(48, 24);
-            this.toolStripButton4.Text = "Exit";
-            this.toolStripButton4.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
-            this.toolStripButton4.ToolTipText = "Exit Application";
+            this.ExitBtn.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ExitBtn.Image = ((System.Drawing.Image)(resources.GetObject("ExitBtn.Image")));
+            this.ExitBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.ExitBtn.Name = "ExitBtn";
+            this.ExitBtn.Size = new System.Drawing.Size(53, 24);
+            this.ExitBtn.Text = "Exit";
+            this.ExitBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
+            this.ExitBtn.ToolTipText = "Exit Application";
+            this.ExitBtn.Click += new System.EventHandler(this.ExitBtn_Click);
             // 
             // ProviderForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.ClientSize = new System.Drawing.Size(994, 448);
+            this.ClientSize = new System.Drawing.Size(994, 413);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.patientGB);
-            this.Controls.Add(this.ExitBtn);
-            this.Controls.Add(this.ClearBtn);
-            this.Controls.Add(this.UpdateBtn);
-            this.Controls.Add(this.AddBtn);
             this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
@@ -631,10 +583,6 @@ namespace Covid_Vaccine_Tracker.UI
         private System.Windows.Forms.ToolStripMenuItem NewPatientItem;
         private System.Windows.Forms.ToolStripMenuItem VaccineRecordItem;
         private System.Windows.Forms.ToolStripMenuItem ViewItem;
-        private System.Windows.Forms.Button AddBtn;
-        private System.Windows.Forms.Button UpdateBtn;
-        private System.Windows.Forms.Button ClearBtn;
-        private System.Windows.Forms.Button ExitBtn;
         private System.Windows.Forms.ErrorProvider ErrorPv;
         private System.Windows.Forms.ToolStripMenuItem UpdatePatientItem;
         private System.Windows.Forms.ToolTip toolTip1;
@@ -670,12 +618,12 @@ namespace Covid_Vaccine_Tracker.UI
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DateTimePicker DOBpicker;
         private System.Windows.Forms.ToolStrip toolStrip1;
-        private System.Windows.Forms.ToolStripButton toolStripButton1;
+        private System.Windows.Forms.ToolStripButton AddBtn;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripButton toolStripButton2;
+        private System.Windows.Forms.ToolStripButton UpdateBtn;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
-        private System.Windows.Forms.ToolStripButton toolStripButton3;
+        private System.Windows.Forms.ToolStripButton ClearBtn;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
-        private System.Windows.Forms.ToolStripButton toolStripButton4;
+        private System.Windows.Forms.ToolStripButton ExitBtn;
     }
 }

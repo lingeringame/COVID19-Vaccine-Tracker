@@ -94,11 +94,10 @@
     <Compile Include="Business Objects\Vaccine_Route.cs" />
     <Compile Include="Business Objects\Vaccine_Type.cs" />
     <Compile Include="Business Objects\Views.cs" />
-    <Compile Include="CovidVaccineDataSet.Designer.cs">
+    <Compile Include="CovidVax_TrackerDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>CovidVaccineDataSet.xsd</DependentUpon>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <DependentUpon>CovidVax_TrackerDataSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="Data Access Layer\AnwsersDB.cs" />
     <Compile Include="Data Access Layer\CDCDB.cs" />
@@ -201,19 +200,16 @@
     <EmbeddedResource Include="UI\VaccineRecordForm.resx">
       <DependentUpon>VaccineRecordForm.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="CovidVaccineDataSet.xsc">
-      <DependentUpon>CovidVaccineDataSet.xsd</DependentUpon>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    <None Include="CovidVax_TrackerDataSet.xsc">
+      <DependentUpon>CovidVax_TrackerDataSet.xsd</DependentUpon>
     </None>
-    <None Include="CovidVaccineDataSet.xsd">
+    <None Include="CovidVax_TrackerDataSet.xsd">
       <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>CovidVaccineDataSet.Designer.cs</LastGenOutput>
+      <LastGenOutput>CovidVax_TrackerDataSet.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="CovidVaccineDataSet.xss">
-      <DependentUpon>CovidVaccineDataSet.xsd</DependentUpon>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    <None Include="CovidVax_TrackerDataSet.xss">
+      <DependentUpon>CovidVax_TrackerDataSet.xsd</DependentUpon>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

@@ -44,7 +44,7 @@ namespace Covid_Vaccine_Tracker.UI
             this.VaxChart.ChartAreas.Add(chartArea1);
             legend1.Name = "Legend1";
             this.VaxChart.Legends.Add(legend1);
-            this.VaxChart.Location = new System.Drawing.Point(147, 41);
+            this.VaxChart.Location = new System.Drawing.Point(149, 61);
             this.VaxChart.Name = "VaxChart";
             this.VaxChart.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.SeaGreen;
             series1.ChartArea = "ChartArea1";

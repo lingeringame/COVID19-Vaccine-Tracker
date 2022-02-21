@@ -1,4 +1,11 @@
-﻿using System;
+﻿// Covid Vaccine Tracker - Stats class
+/// <summary>
+/// This class will hold multiple static classes that will be set up to map with dapper
+/// These classes will hold the data pulled from the more analitical type stored procedures
+/// Then be used to create charts
+/// </summary>
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

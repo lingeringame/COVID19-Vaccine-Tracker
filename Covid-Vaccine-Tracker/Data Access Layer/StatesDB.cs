@@ -48,7 +48,7 @@ namespace Covid_Vaccine_Tracker.Data_Access_Layer
         {
             States stateObj = new States();
             string procedure = "[SpGetState]";
-            var parameter = new { abbv = abbreviation };
+            var parameter = new { abvv = abbreviation };
 
             try
             {

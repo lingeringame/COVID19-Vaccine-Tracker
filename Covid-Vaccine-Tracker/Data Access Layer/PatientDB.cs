@@ -112,6 +112,7 @@ namespace Covid_Vaccine_Tracker.Data_Access_Layer
             string procedure = "[SpAddPatient]";
             // this is how you specify multiple parameters to pass into a stored procedure
             // note the name of the parameters has to be the same inside the stored procedure
+            
             var parameters = new
             {
                 id = newPatient.Id,
@@ -240,11 +241,8 @@ namespace Covid_Vaccine_Tracker.Data_Access_Layer
         {
             bool patientFound;
             Patient requstedPatient = new Patient();
-            string procedure = "[SpVerifyPatient]";
-            var parameters = new
-            {
-                patientId = pId,
-            };
+            string procedure = "[SpGetPatient]";
+            var parameters = new {id = pId, };
 
             try
             {
