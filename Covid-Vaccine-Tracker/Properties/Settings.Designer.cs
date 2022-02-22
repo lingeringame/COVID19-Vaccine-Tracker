@@ -33,5 +33,16 @@ namespace Covid_Vaccine_Tracker.Properties {
                 return ((string)(this["CovidVax_TrackerConnectionString"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\\Covid19_Vax_T" +
+            "racker.mdf;Integrated Security=True;Connect Timeout=30")]
+        public string Covid19_Vax_TrackerConnectionString {
+            get {
+                return ((string)(this["Covid19_Vax_TrackerConnectionString"]));
+            }
+        }
     }
 }

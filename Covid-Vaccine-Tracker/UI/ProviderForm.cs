@@ -28,7 +28,7 @@ namespace Covid_Vaccine_Tracker.UI
         // Therefor every method on this form has access to them
 
         // Title of app used in DisplayError and DisplaySuccess methods
-        string appTitle = "Covid Vaccine Tracker";
+        readonly string appTitle = "Covid Vaccine Tracker";
 
         // Newly generated patient id and PPRL if new patient menu item clicked
         string GeneratedPatientId;
@@ -39,7 +39,7 @@ namespace Covid_Vaccine_Tracker.UI
         Patient FreshPatient;
 
         // Holds the current providers data
-        HealthCareProvider ActiveProvider = new HealthCareProvider();
+        readonly HealthCareProvider ActiveProvider = new HealthCareProvider();
 
         // Lists to hold the values for combo boxs
         List<States> States50 = new List<States>();
@@ -332,7 +332,7 @@ namespace Covid_Vaccine_Tracker.UI
                 NewPatient.Street_address = StreetTxt.Text;
                 NewPatient.City = CityTxt.Text;
                 NewPatient.County = CountyTxt.Text;
-                NewPatient.Zip_code = ZipTxt.Text;
+                NewPatient.Zipcode = ZipTxt.Text;
 
                 // To save calls to database take the selected index of combo-box and get objects value at index of the
                 // item in the list. Then take the set to new patient attribute 
@@ -343,7 +343,7 @@ namespace Covid_Vaccine_Tracker.UI
                 valueIndex = Race2Cbx.SelectedIndex;
                 NewPatient.Race2 = Races2[valueIndex].Race_Type;
                 valueIndex = EthnicityCbx.SelectedIndex;
-                NewPatient.Ethnicity = Ethnicities[valueIndex].Ethnicity_Type;
+                NewPatient.Ethnicity = Ethnicities[valueIndex].Code;
                 valueIndex = SexCbx.SelectedIndex;
                 NewPatient.Sex = Sexes[valueIndex].Sex_Type;
 
@@ -380,8 +380,8 @@ namespace Covid_Vaccine_Tracker.UI
                     CreatePatient(NewPatient);
                 
             }
-            catch(Exception ex)
-            { throw ex; }
+            catch(Exception ex) // any errors 
+            { DisplayError(ex.Message,appTitle); }
         }
         private void GroupBoxControls(string command)
         {
@@ -514,7 +514,7 @@ namespace Covid_Vaccine_Tracker.UI
             // Get the date for five years ago bc vaccines cannot be given to kids 5 or less
             DateTime fiveYearsAgo = todaysDate.AddYears(-5);
             // Set a date for a dead person.. 110 is pushing it
-            DateTime hundred10YearsAgo = todaysDate.AddYears(-100);
+            DateTime hundred10YearsAgo = todaysDate.AddYears(-110);
             // Set textbox index to datepicker 
             tbx = 4;
 

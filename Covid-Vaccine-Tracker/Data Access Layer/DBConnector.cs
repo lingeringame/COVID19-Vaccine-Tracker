@@ -21,7 +21,7 @@ namespace Covid_Vaccine_Tracker.Data_Access_Layer
 
             try
             {
-                connectionString = ConfigurationManager.ConnectionStrings["CovidVaccineDBConnection"].ConnectionString;
+                connectionString = ConfigurationManager.ConnectionStrings["Covid_Vaccine_Tracker_Connection"].ConnectionString;
             }
             catch(Exception ex)
             { throw ex; }

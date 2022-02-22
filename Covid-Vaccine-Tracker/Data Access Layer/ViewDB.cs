@@ -37,7 +37,7 @@ namespace Covid_Vaccine_Tracker.Data_Access_Layer
         }
         public static List<Views> GetProviderViews()
         {
-            string procedure = "[SpGetProiderViews]";
+            string procedure = "[SpGetProviderViews]";
             List<Views> views = new List<Views>();
 
             try
@@ -55,7 +55,7 @@ namespace Covid_Vaccine_Tracker.Data_Access_Layer
         }
         public static string GetProviderView(int Vid)
         {
-            string procedure = "[SpGetProiderView]";
+            string procedure = "[SpGetProviderView]";
             var parameter = new { id = Vid };
             string view;
 

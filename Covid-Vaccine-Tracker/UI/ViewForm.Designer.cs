@@ -169,6 +169,7 @@ namespace Covid_Vaccine_Tracker.UI
             this.ChartBtn.Size = new System.Drawing.Size(68, 25);
             this.ChartBtn.Text = "Chart";
             this.ChartBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
+            this.ChartBtn.Click += new System.EventHandler(this.ChartBtn_Click);
             // 
             // toolStripSeparator2
             // 

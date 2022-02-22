@@ -27,9 +27,9 @@ namespace Covid_Vaccine_Tracker.UI
 {
     public partial class ViewForm : Form
     {
-        bool IsCdcUser;
+        readonly bool IsCdcUser;
         List<Views> RecordViews = new List<Views>();
-        string AppTitle = "Covid Vaccine Tracker";
+        readonly string AppTitle = "Covid Vaccine Tracker";
 
         public ViewForm()
         {
@@ -199,7 +199,7 @@ namespace Covid_Vaccine_Tracker.UI
                         DisplaySuccess(OutOfScopeMessage, AppTitle);
                         //vaccineRecords = VaccineRecordDB.GetVaxSeries_Identifying("No");
                         break;
-                    case 3: // Vaccine series complete = unknown 
+                    case 3: // Vaccine by dose
                         DisplaySuccess(OutOfScopeMessage, AppTitle);
                         //vaccineRecords = VaccineRecordDB.GetVaxSeries_Identifying("Unknown");
                         break;
@@ -280,7 +280,7 @@ namespace Covid_Vaccine_Tracker.UI
                             RecordsDg.DataSource = vaxRecords_Provider;
                         }
                         // If IsCdcUser false & combo-bx selected index > 4
-                        else if (selectedView > 4)
+                        else if (selectedView >= 5)
                         {
                             patientRecords = GetPatientRecords_Provider(selectedView);
                             RecordsDg.DataSource = patientRecords;
@@ -302,7 +302,7 @@ namespace Covid_Vaccine_Tracker.UI
 
         }
         // The chart button is out of scope for sprint on 2/17/22 so just display notification 
-        private void chartBtn_Click(object sender, EventArgs e)
+        private void ChartBtn_Click(object sender, EventArgs e)
         { DisplaySuccess("This feature is coming soom!!!! This Button has Business Events out of scope for this sprint", AppTitle); }
 
         private void ExitBtn_Click(object sender, EventArgs e)
@@ -342,5 +342,6 @@ namespace Covid_Vaccine_Tracker.UI
             else // If cdc user then disable patient lbl and txtbx
                 PatientInput("Disable");
         }
+
     }
 }

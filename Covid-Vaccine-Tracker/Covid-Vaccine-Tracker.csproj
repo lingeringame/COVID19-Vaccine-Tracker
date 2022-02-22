@@ -94,10 +94,10 @@
     <Compile Include="Business Objects\Vaccine_Route.cs" />
     <Compile Include="Business Objects\Vaccine_Type.cs" />
     <Compile Include="Business Objects\Views.cs" />
-    <Compile Include="CovidVax_TrackerDataSet.Designer.cs">
+    <Compile Include="Covid19_Vax_TrackerDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>CovidVax_TrackerDataSet.xsd</DependentUpon>
+      <DependentUpon>Covid19_Vax_TrackerDataSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="Data Access Layer\AnwsersDB.cs" />
     <Compile Include="Data Access Layer\CDCDB.cs" />
@@ -200,16 +200,16 @@
     <EmbeddedResource Include="UI\VaccineRecordForm.resx">
       <DependentUpon>VaccineRecordForm.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="CovidVax_TrackerDataSet.xsc">
-      <DependentUpon>CovidVax_TrackerDataSet.xsd</DependentUpon>
+    <None Include="Covid19_Vax_TrackerDataSet.xsc">
+      <DependentUpon>Covid19_Vax_TrackerDataSet.xsd</DependentUpon>
     </None>
-    <None Include="CovidVax_TrackerDataSet.xsd">
+    <None Include="Covid19_Vax_TrackerDataSet.xsd">
       <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>CovidVax_TrackerDataSet.Designer.cs</LastGenOutput>
+      <LastGenOutput>Covid19_Vax_TrackerDataSet.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </None>
-    <None Include="CovidVax_TrackerDataSet.xss">
-      <DependentUpon>CovidVax_TrackerDataSet.xsd</DependentUpon>
+    <None Include="Covid19_Vax_TrackerDataSet.xss">
+      <DependentUpon>Covid19_Vax_TrackerDataSet.xsd</DependentUpon>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -238,12 +238,12 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="CovidVax_Tracker.mdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    <Content Include="Covid19_Vax_Tracker.mdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="CovidVax_Tracker_log.ldf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <DependentUpon>CovidVax_Tracker.mdf</DependentUpon>
+    <Content Include="Covid19_Vax_Tracker_log.ldf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <DependentUpon>Covid19_Vax_Tracker.mdf</DependentUpon>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
