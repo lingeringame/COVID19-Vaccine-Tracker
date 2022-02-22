@@ -239,10 +239,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="CovidVax_Tracker.mdf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="CovidVax_Tracker_log.ldf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <DependentUpon>CovidVax_Tracker.mdf</DependentUpon>
     </Content>
   </ItemGroup>
