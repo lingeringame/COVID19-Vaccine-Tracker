@@ -56,10 +56,19 @@ namespace Covid_Vaccine_Tracker.Business_Objects
             {
                 try
                 {
+                    // TryParse will parse a string to an int and return an out variable
+                    // But having out _ discards the out variable  so this isNumeric will dettermine
+                    // If string is numeric
+                    bool isNumeric = int.TryParse(value, out _);
+                    // Dose same as above but for double
+                    bool isDouble = double.TryParse(value, out _);
+
                     if (value.Length > 25)
                         throw new Exception("First name must be 25 characters or less");
                     else if (string.IsNullOrEmpty(value))
                         throw new Exception("First name cannot be empty or null");
+                    else if (isNumeric || isDouble)
+                        throw new Exception("First name cannot be numeric");
                     else
                         this.first_name = value;
                 }
@@ -76,10 +85,19 @@ namespace Covid_Vaccine_Tracker.Business_Objects
             {
                 try
                 {
+                    // TryParse will parse a string to an int and return an out variable
+                    // But having out _ discards the out variable  so this isNumeric will dettermine
+                    // If string is numeric
+                    bool isNumeric = int.TryParse(value, out _);
+                    // Dose same as above but for double
+                    bool isDouble = double.TryParse(value, out _);
+
                     if (value.Length > 35)
                         throw new Exception("Middle name must be 35 characters or less");
                     else if (string.IsNullOrEmpty(value))
                         throw new Exception("Middle name cannot be empty or null");
+                    else if (isNumeric || isDouble)
+                        throw new Exception("Middle name cannot be numeric");
                     else
                         this.middle_name = value;
                 }
@@ -95,10 +113,19 @@ namespace Covid_Vaccine_Tracker.Business_Objects
             {
                 try
                 {
+                    // TryParse will parse a string to an int and return an out variable
+                    // But having out _ discards the out variable  so this isNumeric will dettermine
+                    // If string is numeric
+                    bool isNumeric = int.TryParse(value, out _);
+                    // Dose same as above but for double
+                    bool isDouble = double.TryParse(value, out _);
+
                     if (value.Length > 35)
                         throw new Exception("Last name must be 35 characters or less");
                     else if (string.IsNullOrEmpty(value))
                         throw new Exception("Last name cannot be empty or null");
+                    else if (isNumeric || isDouble)
+                        throw new Exception("Last name cannot be numeric");
                     else
                         this.last_name = value;
                 }
@@ -156,10 +183,19 @@ namespace Covid_Vaccine_Tracker.Business_Objects
             {
                 try
                 {
+                    // TryParse will parse a string to an int and return an out variable
+                    // But having out _ discards the out variable  so this isNumeric will dettermine
+                    // If string is numeric
+                    bool isNumeric = int.TryParse(value, out _);
+                    // Dose same as above but for double
+                    bool isDouble = double.TryParse(value, out _);
+
                     if (value.Length > 100)
                         throw new Exception("City must be 100 characters or less");
                     else if (string.IsNullOrEmpty(value))
                         throw new Exception("City cannot be empty or null");
+                    else if (isNumeric || isDouble)
+                        throw new Exception("City cannot be numeric");
                     else
                         this.city = value;
                 }
@@ -176,10 +212,19 @@ namespace Covid_Vaccine_Tracker.Business_Objects
             {
                 try
                 {
+                    // TryParse will parse a string to an int and return an out variable
+                    // But having out _ discards the out variable  so this isNumeric will dettermine
+                    // If string is numeric
+                    bool isNumeric = int.TryParse(value, out _);
+                    // Dose same as above but for double
+                    bool isDouble = double.TryParse(value, out _);
+
                     if (value.Length > 100)
                         throw new Exception("County must be 100 characters or less");
                     else if (string.IsNullOrEmpty(value))
                         throw new Exception("County cannot be empty or null");
+                    else if (isNumeric || isDouble)
+                        throw new Exception("County cannot be numeric");
                     else
                         this.county = value;
                 }
@@ -195,10 +240,19 @@ namespace Covid_Vaccine_Tracker.Business_Objects
             {
                 try
                 {
+                    // TryParse will parse a string to an int and return an out variable
+                    // But having out _ discards the out variable  so this isNumeric will dettermine
+                    // If string is numeric
+                    bool isNumeric = int.TryParse(value, out _);
+                    // Dose same as above but for double
+                    bool isDouble = double.TryParse(value, out _);
+
                     if (value.Length > 50)
                         throw new Exception("State must be 50 characters or less");
                     else if (string.IsNullOrEmpty(value))
                         throw new Exception("State cannot be empty or null");
+                    else if (isNumeric || isDouble)
+                        throw new Exception("State cannot be numeric");
                     else
                         this.state = value;
                 }
@@ -234,10 +288,19 @@ namespace Covid_Vaccine_Tracker.Business_Objects
             {
                 try
                 {
+                    // TryParse will parse a string to an int and return an out variable
+                    // But having out _ discards the out variable  so this isNumeric will dettermine
+                    // If string is numeric
+                    bool isNumeric = int.TryParse(value, out _);
+                    // Dose same as above but for double
+                    bool isDouble = double.TryParse(value, out _);
+
                     if (value.Length > 75)
                         throw new Exception("Race must be 75 characters or less");
                     else if (string.IsNullOrEmpty(value))
                         throw new Exception("Race cannot be empty or null");
+                    else if (isNumeric || isDouble)
+                        throw new Exception("Race cannot be numeric");
                     else
                         this.race1 = value;
                 }
@@ -253,10 +316,19 @@ namespace Covid_Vaccine_Tracker.Business_Objects
             {
                 try
                 {
+                    // TryParse will parse a string to an int and return an out variable
+                    // But having out _ discards the out variable  so this isNumeric will dettermine
+                    // If string is numeric
+                    bool isNumeric = int.TryParse(value, out _);
+                    // Dose same as above but for double
+                    bool isDouble = double.TryParse(value, out _);
+
                     if (value.Length > 75)
                         throw new Exception("Race must be 75 characters or less");
                     else if (string.IsNullOrEmpty(value))
                         throw new Exception("Race cannot be empty or null");
+                    else if (isNumeric || isDouble)
+                        throw new Exception("Race cannot be numeric");
                     else
                         this.race2 = value;
                 }
@@ -273,10 +345,19 @@ namespace Covid_Vaccine_Tracker.Business_Objects
             {
                 try
                 {
+                    // TryParse will parse a string to an int and return an out variable
+                    // But having out _ discards the out variable  so this isNumeric will dettermine
+                    // If string is numeric
+                    bool isNumeric = int.TryParse(value, out _);
+                    // Dose same as above but for double
+                    bool isDouble = double.TryParse(value, out _);
+
                     if (value.Length > 6)
                         throw new Exception("Ethnicity code must be 6 characters or less");
                     else if (string.IsNullOrEmpty(value))
                         throw new Exception("Ethnicity cannot be empty or blank");
+                    else if (isNumeric || isDouble)
+                        throw new Exception("Ethnicity cannot be numeric");
                     else
                         this.ethnicity = value;
                 }
@@ -293,10 +374,19 @@ namespace Covid_Vaccine_Tracker.Business_Objects
             {
                 try
                 {
+                    // TryParse will parse a string to an int and return an out variable
+                    // But having out _ discards the out variable  so this isNumeric will dettermine
+                    // If string is numeric
+                    bool isNumeric = int.TryParse(value, out _);
+                    // Dose same as above but for double
+                    bool isDouble = double.TryParse(value, out _);
+
                     if (value.Length > 10)
                         throw new Exception("Sex must be 10 characters or less");
                     else if (string.IsNullOrEmpty(value))
                         throw new Exception("Sex cannot be empty or null");
+                    else if (isNumeric || isDouble)
+                        throw new Exception("Sex cannot be numeric");
                     else
                         this.sex = value;
                 }
@@ -313,10 +403,19 @@ namespace Covid_Vaccine_Tracker.Business_Objects
             {
                 try
                 {
+                    // TryParse will parse a string to an int and return an out variable
+                    // But having out _ discards the out variable  so this isNumeric will dettermine
+                    // If string is numeric
+                    bool isNumeric = int.TryParse(value, out _);
+                    // Dose same as above but for double
+                    bool isDouble = double.TryParse(value, out _);
+
                     if (value.Length > 15)
                         throw new Exception("Extract type must be 15 characters or less");
                     else if (string.IsNullOrEmpty(value))
                         throw new Exception("Extract type cannot be empty or null");
+                    else if (isNumeric || isDouble)
+                        throw new Exception("Extract type cannot be numeric");
                     else
                         this.extract_type = value;
                 }

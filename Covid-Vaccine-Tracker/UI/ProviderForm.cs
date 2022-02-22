@@ -57,6 +57,7 @@ namespace Covid_Vaccine_Tracker.UI
         (bool, string) IsValid;
         // tuple to check patients age
         (bool, string) OfAge;
+        bool patientCreated;
 
         public ProviderForm()
         {
@@ -117,6 +118,12 @@ namespace Covid_Vaccine_Tracker.UI
                     break;
                 case 13:
                     ErrorPv.SetError(EthnicityCbx, emsg);
+                    break;
+                case 14:
+                    ErrorLbl.Enabled = true;
+                    ErrorLbl.Visible = true;
+                    ErrorLbl.Text = emsg;
+                    ErrorPv.SetError(ErrorLbl, "Input Needs to be checked");
                     break;
             }
         }
@@ -346,8 +353,9 @@ namespace Covid_Vaccine_Tracker.UI
                 NewPatient.Ethnicity = Ethnicities[valueIndex].Code;
                 valueIndex = SexCbx.SelectedIndex;
                 NewPatient.Sex = Sexes[valueIndex].Sex_Type;
-
                 NewPatient.Extract_Type = ExtractTxt.Text;
+                // bool to determin if patient created
+                patientCreated = true;
             }
             catch(Exception ex)
             { throw ex; }
@@ -380,8 +388,8 @@ namespace Covid_Vaccine_Tracker.UI
                     CreatePatient(NewPatient);
                 
             }
-            catch(Exception ex) // any errors 
-            { DisplayError(ex.Message,appTitle); }
+            catch(Exception ex) // any errors display on error label
+            { SetErrorPv(14,ex.Message); }
         }
         private void GroupBoxControls(string command)
         {
@@ -538,6 +546,14 @@ namespace Covid_Vaccine_Tracker.UI
 
             return (oldEnough, errMsg);
         }
+        private void ResetErrorLbl()
+        {
+            ErrorLbl.Enabled = false;
+            ErrorLbl.Visible = false;
+            ErrorLbl.Text = string.Empty;
+            // patientCreated is a global variable that determines if errors occured during instanciating patient obj
+            patientCreated = false;
+        }
         private void ProviderForm_Load(object sender, EventArgs e)
         {
             // This code executes when the form is loading 
@@ -662,6 +678,7 @@ namespace Covid_Vaccine_Tracker.UI
         {
             // Reset any errors from before
             ResetErrorPv();
+            ResetErrorLbl();
             // New patient is being added 
             // tbx will hold the index of any textboxes that have an error
             // It is set to a number that is outside the number of textboxs could be different
@@ -686,44 +703,49 @@ namespace Covid_Vaccine_Tracker.UI
                     {
                         SetNewPatient(FreshPatient, false);
 
-                        // Was the patient added successfully
-                        WasSuccess = PatientDB.AddPatient(FreshPatient);
-
-                        if (WasSuccess)
+                        // Check that patient was set so system does not add incorect values or missing values to DB
+                        if (patientCreated)
                         {
-                            DisplaySuccess("Patient has been succesfully added", appTitle);
-                            // Set PPRL
-                            PPRL pRL = new PPRL();
-                            pRL.Patient_Id = GeneratedPatientId;
-                            pRL.PPRL_Number = GeneratedPPRL;
-                            // Store PPRL
-                            GoodAdd = PPRLDB.AddPPRL(pRL);
+                            // Was the patient added successfully
+                            WasSuccess = PatientDB.AddPatient(FreshPatient);
 
-                            // If pprl added successful do nothing
-                            // If add is unsuccessful display err Msg
-                            if (!GoodAdd)
-                                DisplayError("An error occured while storing patient's PPRL", appTitle);
+                            if (WasSuccess)
+                            {
+                                DisplaySuccess("Patient has been succesfully added", appTitle);
+                                // Set PPRL
+                                PPRL pRL = new PPRL();
+                                pRL.Patient_Id = GeneratedPatientId;
+                                pRL.PPRL_Number = GeneratedPPRL;
+                                // Store PPRL
+                                GoodAdd = PPRLDB.AddPPRL(pRL);
 
-                            // Disable groupbox and controls if was success
-                            InputControls("Disable");
-                            DisableButtons();
-                            ResetForm();
+                                // If pprl added successful do nothing
+                                // If add is unsuccessful display err Msg
+                                if (!GoodAdd)
+                                    DisplayError("An error occured while storing patient's PPRL", appTitle);
 
-                            // Vaccine form is out of scope for this sprint so display message box notification
-                            // Now call vax form to enter all vaccine information
-                            //VaccineRecordForm VaxForm = new VaccineRecordForm(ActiveProvider, FreshPatient);
-                            //VaxForm.ShowDialog();
+                                // Disable groupbox and controls if was success
+                                InputControls("Disable");
+                                DisableButtons();
+                                ResetForm();
 
-                            DisplaySuccess("Next the vaccine record form would display but it is out of scope this sprint", appTitle);
+                                // Vaccine form is out of scope for this sprint so display message box notification
+                                // Now call vax form to enter all vaccine information
+                                //VaccineRecordForm VaxForm = new VaccineRecordForm(ActiveProvider, FreshPatient);
+                                //VaxForm.ShowDialog();
+
+                                DisplaySuccess("Next the vaccine record form would display but it is out of scope this sprint", appTitle);
+                            }
+                            else if (!WasSuccess)
+                                DisplayError("Error patient has not been added", appTitle);
                         }
-                        else if (!WasSuccess)
-                            DisplayError("Error patient has not been added", appTitle);
+                        
                     }
                     else // If not a valid age display errorMsg with errorPv 
                         SetErrorPv(tbx, OfAge.Item2);
                 }
-                catch (Exception ex)
-                { DisplayError(ex.Message, appTitle); }
+                catch (Exception ex) // If there are any patient input errors display in error label
+                {DisplayError(ex.Message,appTitle); }
             }
             // If IsValid Item1 false then display the error on the textbox with ErrorPV
             // IsValid.Item2 holds the error msg
@@ -734,6 +756,7 @@ namespace Covid_Vaccine_Tracker.UI
         {
             // Reset any errors from bfore
             ResetErrorPv();
+            ResetErrorLbl();
             // Patient is being updated
             int tbx = -1;
             IsValid = CheckForm(ref tbx);
@@ -785,6 +808,7 @@ namespace Covid_Vaccine_Tracker.UI
         private void ClearBtn_Click(object sender, EventArgs e)
         {
             ResetForm();
+            ResetErrorLbl();
         }
         private void ExitBtn_Click(object sender, EventArgs e)
         {

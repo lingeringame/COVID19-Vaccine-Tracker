@@ -78,6 +78,7 @@ namespace Covid_Vaccine_Tracker.UI
             this.ClearBtn = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.ExitBtn = new System.Windows.Forms.ToolStripButton();
+            this.ErrorLbl = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ErrorPv)).BeginInit();
             this.patientGB.SuspendLayout();
@@ -179,6 +180,7 @@ namespace Covid_Vaccine_Tracker.UI
             // patientGB
             // 
             this.patientGB.BackColor = System.Drawing.SystemColors.Control;
+            this.patientGB.Controls.Add(this.ErrorLbl);
             this.patientGB.Controls.Add(this.DOBpicker);
             this.patientGB.Controls.Add(this.StatesCbx);
             this.patientGB.Controls.Add(this.label15);
@@ -550,6 +552,19 @@ namespace Covid_Vaccine_Tracker.UI
             this.ExitBtn.ToolTipText = "Exit Application";
             this.ExitBtn.Click += new System.EventHandler(this.ExitBtn_Click);
             // 
+            // ErrorLbl
+            // 
+            this.ErrorLbl.AutoSize = true;
+            this.ErrorLbl.Enabled = false;
+            this.ErrorLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ErrorLbl.ForeColor = System.Drawing.Color.Red;
+            this.ErrorLbl.Location = new System.Drawing.Point(467, 48);
+            this.ErrorLbl.Name = "ErrorLbl";
+            this.ErrorLbl.Size = new System.Drawing.Size(44, 20);
+            this.ErrorLbl.TabIndex = 30;
+            this.ErrorLbl.Text = "Error";
+            this.ErrorLbl.Visible = false;
+            // 
             // ProviderForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -625,5 +640,6 @@ namespace Covid_Vaccine_Tracker.UI
         private System.Windows.Forms.ToolStripButton ClearBtn;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripButton ExitBtn;
+        private System.Windows.Forms.Label ErrorLbl;
     }
 }
