@@ -37,7 +37,7 @@ namespace Covid_Vaccine_Tracker.UI
             this.label1 = new System.Windows.Forms.Label();
             this.ViewsCbx = new System.Windows.Forms.ComboBox();
             this.IdLbl = new System.Windows.Forms.Label();
-            this.PatientIdTxt = new System.Windows.Forms.TextBox();
+            this.SearchValTxt = new System.Windows.Forms.TextBox();
             this.ErrorPv = new System.Windows.Forms.ErrorProvider(this.components);
             this.RecordsDg = new System.Windows.Forms.DataGridView();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
@@ -82,14 +82,14 @@ namespace Covid_Vaccine_Tracker.UI
             this.IdLbl.Text = "Patient Id";
             this.IdLbl.Visible = false;
             // 
-            // PatientIdTxt
+            // SearchValTxt
             // 
-            this.PatientIdTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.PatientIdTxt.Location = new System.Drawing.Point(33, 125);
-            this.PatientIdTxt.Name = "PatientIdTxt";
-            this.PatientIdTxt.Size = new System.Drawing.Size(100, 24);
-            this.PatientIdTxt.TabIndex = 4;
-            this.PatientIdTxt.Visible = false;
+            this.SearchValTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SearchValTxt.Location = new System.Drawing.Point(33, 125);
+            this.SearchValTxt.Name = "SearchValTxt";
+            this.SearchValTxt.Size = new System.Drawing.Size(100, 24);
+            this.SearchValTxt.TabIndex = 4;
+            this.SearchValTxt.Visible = false;
             // 
             // ErrorPv
             // 
@@ -195,7 +195,7 @@ namespace Covid_Vaccine_Tracker.UI
             this.ClientSize = new System.Drawing.Size(1544, 460);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.RecordsDg);
-            this.Controls.Add(this.PatientIdTxt);
+            this.Controls.Add(this.SearchValTxt);
             this.Controls.Add(this.IdLbl);
             this.Controls.Add(this.ViewsCbx);
             this.Controls.Add(this.label1);
@@ -217,7 +217,7 @@ namespace Covid_Vaccine_Tracker.UI
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox ViewsCbx;
         private System.Windows.Forms.Label IdLbl;
-        private System.Windows.Forms.TextBox PatientIdTxt;
+        private System.Windows.Forms.TextBox SearchValTxt;
         private System.Windows.Forms.ErrorProvider ErrorPv;
         private System.Windows.Forms.DataGridView RecordsDg;
         private System.Windows.Forms.ToolStrip toolStrip1;

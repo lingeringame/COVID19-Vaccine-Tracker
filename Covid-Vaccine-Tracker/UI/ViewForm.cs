@@ -77,36 +77,39 @@ namespace Covid_Vaccine_Tracker.UI
                     break;
             }
         }
-        private void PatientInput(string command)
+        private void ValueInput(string command)
         {
             switch(command)
             {
                 case "Disable":
                     IdLbl.Visible = false;
                     IdLbl.Enabled = false;
-                    PatientIdTxt.Visible = false;
-                    PatientIdTxt.Enabled = false;
+                    SearchValTxt.Visible = false;
+                    SearchValTxt.Enabled = false;
                     break;
                 case "Enable":
                     IdLbl.Visible = true;
                     IdLbl.Enabled = true;
-                    PatientIdTxt.Visible = true;
-                    PatientIdTxt.Enabled = true;
+                    SearchValTxt.Visible = true;
+                    SearchValTxt.Enabled = true;
                     break;
             }
+        }
+        private void SetLabelText(string txt)
+        {
+            IdLbl.Text = txt;
         }
         private (bool,string) CheckForm(ref int tbx)
         {
             bool valid = true;
             string errMsg = string.Empty;
 
-            if (string.IsNullOrEmpty(PatientIdTxt.Text))
+            if (string.IsNullOrEmpty(SearchValTxt.Text))
             {
                 valid = false;
-                errMsg = "You must enter patient id to search by patient";
+                errMsg = "You must enter a value to search by";
                 tbx = 1;
             }
-
             return (valid, errMsg);
         }
         private void SetErrorPv(int tbx, string errMsg)
@@ -118,7 +121,7 @@ namespace Covid_Vaccine_Tracker.UI
                     ErrorPv.SetError(ViewsCbx, errMsg);
                     break;
                 case 1:
-                    ErrorPv.SetError(PatientIdTxt, errMsg);
+                    ErrorPv.SetError(SearchValTxt, errMsg);
                     break;
             }
         }
@@ -148,22 +151,52 @@ namespace Covid_Vaccine_Tracker.UI
         {
             // Create lists that will store respective record type
             List<VaccineRecord> vaccineRecords = new List<VaccineRecord>();
-
+            (bool, string) isValid;
+            int Tbx = -1;
             // determine the view selected index vale then get data from the database and then stores it in a list
             try
             {
                 switch (indx)
                 {
-                    // This switch block is out of scope for this sprint
-                    // it is code that gets the data for CDC view and chartform
-                    //case 0:
-                    //    vaxRecords = VaccineRecordDB.GetReccordBy("Uncomplete");
-                    //    break;
-                    //case 1:
-                    //    vaxRecords = VaccineRecordDB.GetReccordsBy("Complete");
-                    //    break;
-                    //case 2:
-                    //    vaxRecords = VaccineRecordDB.GetReccordsBy("All");
+                    case 0:
+                        vaccineRecords = VaccineRecordDB.GetVaccineRecords_D();
+                        break;
+                    case 1:
+                        vaccineRecords = VaccineRecordDB.GetVaccinesBySeriesStatus_D("Yes");
+                        break;
+                    case 2:
+                        vaccineRecords = VaccineRecordDB.GetVaccinesBySeriesStatus_D("No");
+                        break;
+                    case 3:
+                        isValid = CheckForm(ref Tbx);
+                        if (isValid.Item1)
+                        {
+                            string doseNumber = SearchValTxt.Text.Trim();
+                            vaccineRecords = VaccineRecordDB.GetVaccinesByDose_D(doseNumber);
+                        }
+                        else
+                            SetErrorPv(Tbx, isValid.Item2);
+                        break;
+                    case 4:
+                        isValid = CheckForm(ref Tbx);
+                        if (isValid.Item1)
+                        {
+                            string city = SearchValTxt.Text.Trim();
+                            vaccineRecords = VaccineRecordDB.GetVaccinesByCity_D(city);
+                        }
+                        else
+                            SetErrorPv(Tbx, isValid.Item2);
+                        break;
+                    case 5:
+                        isValid = CheckForm(ref Tbx);
+                        if (isValid.Item1)
+                        {
+                            string county= SearchValTxt.Text.Trim();
+                            vaccineRecords = VaccineRecordDB.GetVaccineByCounty_D(county);
+                        }
+                        else
+                            SetErrorPv(Tbx, isValid.Item2);
+                        break;
                 }
             }
             catch (Exception ex)
@@ -178,38 +211,61 @@ namespace Covid_Vaccine_Tracker.UI
             List<Identifying_VaccineRecord> vaccineRecords = new List<Identifying_VaccineRecord>();
             // Create a list to hold patient objects incase patinet(s) info is viewed
             List<Patient> patientRecords = new List<Patient>();
+            (bool, string) isValid;
+            int Tbx = -1;
             // determine the view selected index vale then get data from the database and then stores it in a list
-
-            // Since vaccine records form events are out of scope this sprint display a message if that value is selected
-            // This string will hold the message.
-            string OutOfScopeMessage = "Feature coming soon, Events related to vaccine records are out of scope this sprint";
             try
             {
                 switch (indx)
                 {
-                    case 0: // All vaccine records
-                        DisplaySuccess(OutOfScopeMessage, AppTitle);
-                        //vaccineRecords = VaccineRecordDB.GetVaccineRecords_Identifying();
+                    case 0: // All vaccine records                        
+                        vaccineRecords = VaccineRecordDB.GetVaccineRecords_I();
                         break;
                     case 1: // Vaccine series complete = yes
-                        DisplaySuccess(OutOfScopeMessage, AppTitle);
-                        //vaccineRecords = VaccineRecordDB.GetVaxSeries_Identifying("Yes");
+                        vaccineRecords = VaccineRecordDB.GetVaxSeries_I("Yes");
                         break;
                     case 2: // Vaccine sereis complete = no
-                        DisplaySuccess(OutOfScopeMessage, AppTitle);
-                        //vaccineRecords = VaccineRecordDB.GetVaxSeries_Identifying("No");
+                        vaccineRecords = VaccineRecordDB.GetVaxSeries_I("No");
                         break;
                     case 3: // Vaccine by dose
-                        DisplaySuccess(OutOfScopeMessage, AppTitle);
-                        //vaccineRecords = VaccineRecordDB.GetVaxSeries_Identifying("Unknown");
+                        isValid = CheckForm(ref Tbx);
+                        if (isValid.Item1)
+                        {
+                            string doseNumber = SearchValTxt.Text.Trim();
+                            vaccineRecords = VaccineRecordDB.GetVaxSeries_I(doseNumber);
+                        }
+                        else
+                            SetErrorPv(Tbx, isValid.Item2);
                         break;
-                    case 4: // Vaccine records by patient
-                        DisplaySuccess(OutOfScopeMessage, AppTitle);
-                        //isValid = CheckForm(ref Tbx);
-                        //if (isValid.Item1) // If patient id is not null or empty then find patient's records
-                        //    vaccineRecords = VaccineRecordDB.GetVaccineRecord_Identifying(PatientIdTxt.Text);
-                        //else // patient id was null or empty so display error msg with error provider
-                        //    SetErrorPv(Tbx, isValid.Item2);
+                    case 4: // vax by city
+                        isValid = CheckForm(ref Tbx);
+                        if (isValid.Item1)
+                        {
+                            string city = SearchValTxt.Text.Trim();
+                            vaccineRecords = VaccineRecordDB.GetVaccineByCity_I(city);
+                        }
+                        else
+                            SetErrorPv(Tbx, isValid.Item2);
+                        break;
+                    case 5: // vax by county
+                        isValid = CheckForm(ref Tbx);
+                        if (isValid.Item1)
+                        {
+                            string county = SearchValTxt.Text.Trim();
+                            vaccineRecords = VaccineRecordDB.GetVaccineByCounty_I(county);
+                        }
+                        else
+                            SetErrorPv(Tbx, isValid.Item2);
+                        break;
+                    case 6: // Vaccine records by patient
+                        isValid = CheckForm(ref Tbx);
+                        if (isValid.Item1) // If patient id is not null or empty then find patient's records
+                        {
+                            string patientId = SearchValTxt.Text.Trim();
+                            vaccineRecords = VaccineRecordDB.GetVaccineRecord_I(patientId);
+                        }
+                        else // patient id was null or empty so display error msg with error provider
+                            SetErrorPv(Tbx, isValid.Item2);
                         break;
                 }
             }
@@ -229,14 +285,14 @@ namespace Covid_Vaccine_Tracker.UI
 
             switch (indx)
             {
-                case 5: // Patient information
+                case 7: // Patient information
                     isValid = CheckForm(ref Tbx);
                     if (isValid.Item1) // If patient id is not null or empty assign first element in list to patient 
-                        patientRecords.Add(PatientDB.GetPatient(PatientIdTxt.Text));
+                        patientRecords.Add(PatientDB.GetPatient(SearchValTxt.Text));
                     else
                         SetErrorPv(Tbx, isValid.Item2);
                     break;
-                case 6: // All patient information
+                case 8: // All patient information
                     patientRecords = PatientDB.GetPatients();
                     break;
             }
@@ -244,7 +300,7 @@ namespace Covid_Vaccine_Tracker.UI
             return patientRecords;
         }
         private void EnterBtn_Click(object sender, EventArgs e)
-        {
+        {           
             // Lists to hold respective records
             List<VaccineRecord> vaxRecords_CDC = new List<VaccineRecord>();
             List<Identifying_VaccineRecord> vaxRecords_Provider = new List<Identifying_VaccineRecord>();
@@ -273,14 +329,14 @@ namespace Covid_Vaccine_Tracker.UI
                     else if (!IsCdcUser)
                     {
                         // If IsCdcUser is false & combo-bx selected index <= 4 then get the records for selected view
-                        if (selectedView <= 4)
+                        if (selectedView <= 6)
                         {
                             vaxRecords_Provider = GetVaccineRecords_Provider(selectedView);
                             // Then bind the list to the Records Datagrid control
                             RecordsDg.DataSource = vaxRecords_Provider;
                         }
                         // If IsCdcUser false & combo-bx selected index > 4
-                        else if (selectedView >= 5)
+                        else if (selectedView >= 7)
                         {
                             patientRecords = GetPatientRecords_Provider(selectedView);
                             RecordsDg.DataSource = patientRecords;
@@ -332,15 +388,55 @@ namespace Covid_Vaccine_Tracker.UI
             // If provider wants to view patient vaccine info or patient info display patient id txtbox
             if (!IsCdcUser)
             {
-                // If view by patient then enable Patient label and txtbx
-                if (ViewsCbx.SelectedIndex == 4 || ViewsCbx.SelectedIndex == 5)
-                    PatientInput("Enable");
-                        
-                else // Anything else Disable Patient lbl and txtbx
-                    PatientInput("Disable");
+                if (ViewsCbx.SelectedIndex <= 3 || ViewsCbx.SelectedIndex == 8)
+                    ValueInput("Disable");
+
+                else if (ViewsCbx.SelectedIndex == 6 || ViewsCbx.SelectedIndex == 7)
+                {
+                    SetLabelText("Patient Id");
+                    ValueInput("Enable");
+                }
+                else
+                {
+                    ValueInput("Enable");
+
+                    switch(ViewsCbx.SelectedIndex)
+                    {
+                        case 3:
+                            SetLabelText("Dose Number");
+                            break;
+                        case 4:
+                            SetLabelText("City");
+                            break;
+                        case 5:
+                            SetLabelText("County");
+                            break;
+                    }
+                }
             }
             else // If cdc user then disable patient lbl and txtbx
-                PatientInput("Disable");
+            {
+                // If index > 2 then need textbox
+                if (ViewsCbx.SelectedIndex > 2)
+                {
+                    ValueInput("Enable");
+
+                    switch (ViewsCbx.SelectedIndex)
+                    {
+                        case 3:
+                            SetLabelText("Dose Number");
+                            break;
+                        case 4:
+                            SetLabelText("City");
+                            break;
+                        case 5:
+                            SetLabelText("County");
+                            break;
+                    }  
+                }
+                else
+                    ValueInput("Disable");
+            }
         }
 
     }

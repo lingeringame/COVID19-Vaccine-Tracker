@@ -116,7 +116,7 @@ namespace Covid_Vaccine_Tracker.UI
                             switch(ActiveUsr.User_Type)
                             {
                                 case "Healthcare Provider":
-                                    HealthCareProvider provider = new HealthCareProvider();
+                                    Provider provider = new Provider();
                                     provider = ProviderDB.GetProvider(ActiveUsr.Username);
                                     ProviderForm Pform = new ProviderForm(provider);
                                     Pform.ShowDialog();

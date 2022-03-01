@@ -39,10 +39,9 @@ namespace Covid_Vaccine_Tracker.Business_Objects
         }
         // Note when passing in minLetter & maxLetter need to be passed in as char 'a'-'z' or 'A'-'Z'
         // Then chagned to ascii value. Can be any letter range
-        public static string GenerateId(int stringLength, int minNumber, int maxNumber, int minLetter, int maxLetter)
+        public static string GenerateId( int minNumber, int maxNumber, int minLetter, int maxLetter)
         {
             var id = new StringBuilder();
-
             // returns a 7 digit string of number 0 -9
             id.Append(GenerateRandomNumber(7, minNumber, maxNumber));
             // returns a 3 digit string of random characters A-Z
@@ -61,7 +60,7 @@ namespace Covid_Vaccine_Tracker.Business_Objects
             // Now create letter portion of id the length of NumberOFletters
             // minLetter & maxLetter are passed in as 'a'-'z' or 'A'-'Z' then changed into asci value
             // can be any letter range
-            id.Append(GenerateRandomNumber(NumberOFletters, minLetter, maxLetter));
+            id.Append(GenerateRandomLetter(NumberOFletters, minLetter, maxLetter));
 
             // since id is a StringBuilder obj convert to string to return
             return id.ToString();

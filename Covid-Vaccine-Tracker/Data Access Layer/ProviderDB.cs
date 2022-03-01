@@ -28,9 +28,9 @@ namespace Covid_Vaccine_Tracker.Data_Access_Layer
 
             return conStr;
         }
-        public static HealthCareProvider GetProvider(string Uname)
+        public static Provider GetProvider(string Uname)
         {
-            HealthCareProvider provider = new HealthCareProvider();
+            Provider provider = new Provider();
             string procedure = "[SpFindProvider]";
             var parameter = new { usrname = Uname };
 
@@ -40,7 +40,7 @@ namespace Covid_Vaccine_Tracker.Data_Access_Layer
 
                 using(IDbConnection db = new SqlConnection(conStr))
                 {
-                    provider = db.QuerySingle<HealthCareProvider>(procedure, parameter, commandType: CommandType.StoredProcedure);
+                    provider = db.QuerySingle<Provider>(procedure, parameter, commandType: CommandType.StoredProcedure);
                 }
             }
             catch(Exception ex)

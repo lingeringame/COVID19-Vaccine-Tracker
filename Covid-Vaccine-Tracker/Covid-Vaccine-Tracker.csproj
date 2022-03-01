@@ -36,7 +36,7 @@
     <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+    <WarningLevel>2</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -75,8 +75,10 @@
     <Compile Include="Business Objects\Dose.cs" />
     <Compile Include="Business Objects\Ethnicity.cs" />
     <Compile Include="Business Objects\Extracts.cs" />
-    <Compile Include="Business Objects\HealthCareProvider.cs" />
+    <Compile Include="Business Objects\Provider.cs" />
     <Compile Include="Business Objects\IdGenerator.cs" />
+    <Compile Include="Business Objects\InputValidator.cs" />
+    <Compile Include="Business Objects\Location_Types.cs" />
     <Compile Include="Business Objects\Patient.cs" />
     <Compile Include="Business Objects\PPRL.cs" />
     <Compile Include="Business Objects\Provider_Suffix.cs" />
@@ -90,17 +92,11 @@
     <Compile Include="Business Objects\VaccineRecord.cs" />
     <Compile Include="Business Objects\Identifying_VaccineRecord.cs" />
     <Compile Include="Business Objects\Vaccine_Admin_Site.cs" />
-    <Compile Include="Business Objects\Vaccine_EventId.cs" />
     <Compile Include="Business Objects\Vaccine_Manufacturer.cs" />
     <Compile Include="Business Objects\Vaccine_Product.cs" />
     <Compile Include="Business Objects\Vaccine_Route.cs" />
     <Compile Include="Business Objects\Vaccine_Type.cs" />
     <Compile Include="Business Objects\Views.cs" />
-    <Compile Include="Covid19_Vax_TrackerDataSet.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Covid19_Vax_TrackerDataSet.xsd</DependentUpon>
-    </Compile>
     <Compile Include="Data Access Layer\AnwsersDB.cs" />
     <Compile Include="Data Access Layer\CDCDB.cs" />
     <Compile Include="Data Access Layer\CDCRecordDB.cs" />
@@ -108,6 +104,7 @@
     <Compile Include="Data Access Layer\DosesDB.cs" />
     <Compile Include="Data Access Layer\EthnicitiesDB.cs" />
     <Compile Include="Data Access Layer\ExtractsDB.cs" />
+    <Compile Include="Data Access Layer\Location_TypeDB.cs" />
     <Compile Include="Data Access Layer\PatientDB.cs" />
     <Compile Include="Data Access Layer\PPRLDB.cs" />
     <Compile Include="Data Access Layer\Protector.cs" />
@@ -120,7 +117,6 @@
     <Compile Include="Data Access Layer\StatsDB.cs" />
     <Compile Include="Data Access Layer\UserDB.cs" />
     <Compile Include="Data Access Layer\User_TypesDB.cs" />
-    <Compile Include="Data Access Layer\VaccineEventDB.cs" />
     <Compile Include="Data Access Layer\VaccineRecordDB.cs" />
     <Compile Include="Data Access Layer\Vax_Admin_StitesDB.cs" />
     <Compile Include="Data Access Layer\Vax_ManufacturersDB.cs" />
@@ -202,17 +198,6 @@
     <EmbeddedResource Include="UI\VaccineRecordForm.resx">
       <DependentUpon>VaccineRecordForm.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="Covid19_Vax_TrackerDataSet.xsc">
-      <DependentUpon>Covid19_Vax_TrackerDataSet.xsd</DependentUpon>
-    </None>
-    <None Include="Covid19_Vax_TrackerDataSet.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>Covid19_Vax_TrackerDataSet.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Covid19_Vax_TrackerDataSet.xss">
-      <DependentUpon>Covid19_Vax_TrackerDataSet.xsd</DependentUpon>
-    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -238,15 +223,6 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Covid19_Vax_Tracker.mdf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Covid19_Vax_Tracker_log.ldf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <DependentUpon>Covid19_Vax_Tracker.mdf</DependentUpon>
-    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

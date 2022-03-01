@@ -237,12 +237,33 @@ namespace Covid_Vaccine_Tracker.Data_Access_Layer
 
             return patientFound;
         }
-        public static bool VerifyPatient(string pId)
+        public static bool CheckPatientId(string pId)
+        {
+            bool patientFound;
+            string procedure = "[SpCheckPatientId]";
+            var parameters = new { id = pId, };
+
+            try
+            {
+                string conStr = GetConnection();
+
+                using (IDbConnection db = new SqlConnection(conStr))
+                {
+                    // ExecuteScalar<bool> will map the value returned from Database to either true or false
+                    patientFound = db.ExecuteScalar<bool>(procedure, parameters, commandType: CommandType.StoredProcedure);
+                }
+            }
+            catch (Exception ex)
+            { throw ex; }
+
+            return patientFound;
+        }
+        public static bool VerifyPatient(string pId, string Fname, string Mname, string Lname)
         {
             bool patientFound;
             Patient requstedPatient = new Patient();
-            string procedure = "[SpGetPatient]";
-            var parameters = new {id = pId, };
+            string procedure = "[SpVerifyPatient]";
+            var parameters = new {id = pId, fname = Fname, mname = Mname, lname = Lname };
 
             try
             {

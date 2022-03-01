@@ -39,7 +39,7 @@ namespace Covid_Vaccine_Tracker.UI
         Patient FreshPatient;
 
         // Holds the current providers data
-        readonly HealthCareProvider ActiveProvider = new HealthCareProvider();
+        readonly Provider ActiveProvider = new Provider();
 
         // Lists to hold the values for combo boxs
         List<States> States50 = new List<States>();
@@ -57,13 +57,13 @@ namespace Covid_Vaccine_Tracker.UI
         (bool, string) IsValid;
         // tuple to check patients age
         (bool, string) OfAge;
-        bool patientCreated;
+        bool IsAdd, IdExist, PprlExist, ErrorOccured = false;
 
         public ProviderForm()
         {
             InitializeComponent();
         }
-        public ProviderForm(HealthCareProvider currentProvider)
+        public ProviderForm(Provider currentProvider)
         {
             // Current providers data is passed in and then copied to a global varriable
             InitializeComponent();
@@ -120,10 +120,11 @@ namespace Covid_Vaccine_Tracker.UI
                     ErrorPv.SetError(EthnicityCbx, emsg);
                     break;
                 case 14:
+                    ErrorOccured = true;
                     ErrorLbl.Enabled = true;
                     ErrorLbl.Visible = true;
                     ErrorLbl.Text = emsg;
-                    ErrorPv.SetError(ErrorLbl, "Input Needs to be checked");
+                    ErrorPv.SetError(ErrorLbl, "Input must be corrected to continue");
                     break;
             }
         }
@@ -146,8 +147,13 @@ namespace Covid_Vaccine_Tracker.UI
         private void ResetForm()
         {
             // clears all the textboxs and resets the comboboxs on form
-            PatientIdTxt.Text = string.Empty;
+
+            // If it is a new patient do not clear out the generated id
+            if (!IsAdd)
+                PatientIdTxt.Text = string.Empty;
+
             FnameTxt.Text = string.Empty;
+            MnameTxt.Text = string.Empty;
             LnameTxt.Text = string.Empty;
             // Reset DatePicker
             DOBpicker.Checked = false;
@@ -355,7 +361,7 @@ namespace Covid_Vaccine_Tracker.UI
                 NewPatient.Sex = Sexes[valueIndex].Sex_Type;
                 NewPatient.Extract_Type = ExtractTxt.Text;
                 // bool to determin if patient created
-                patientCreated = true;
+                //patientCreated = true;
             }
             catch(Exception ex)
             { throw ex; }
@@ -374,7 +380,7 @@ namespace Covid_Vaccine_Tracker.UI
                 {
                     id = PatientIdTxt.Text;
                     // Method that checks the database for a match for all 4 arguements
-                    PatientFound = PatientDB.VerifyPatient(id);
+                    PatientFound = PatientDB.CheckPatientId(id);
 
                     // If patient not found then display a error message
                     if (!PatientFound)
@@ -551,8 +557,30 @@ namespace Covid_Vaccine_Tracker.UI
             ErrorLbl.Enabled = false;
             ErrorLbl.Visible = false;
             ErrorLbl.Text = string.Empty;
-            // patientCreated is a global variable that determines if errors occured during instanciating patient obj
-            patientCreated = false;
+            // ErrorOccured is a global variable that determines if errors occured during instanciating patient obj
+            ErrorOccured = false;
+        }
+        private void GetNewPatientId()
+        {
+            do
+            {
+                // Generate a random string 10 chars long with with 3 letters use digits 0-9 and letter A-Z
+                GeneratedPatientId = IdGenerator.GenerateId(10, 3, 0, 9, 'A', 'Z');
+                // Check that id does not exist already
+                IdExist = PatientDB.CheckPatientId(GeneratedPatientId);
+
+            }
+            while (IdExist);
+        }
+        private void GetNewPPRL()
+        {
+            do
+            {
+                // Generate a random string 10 chars long with with 3 letters use digits 0-9 and letter A-Z
+                GeneratedPPRL = IdGenerator.GenerateId(10, 3, 0, 9, 'A', 'Z');
+                PprlExist = PPRLDB.VerifyNewPPRL(GeneratedPPRL);
+            }
+            while (PprlExist);
         }
         private void ProviderForm_Load(object sender, EventArgs e)
         {
@@ -612,8 +640,9 @@ namespace Covid_Vaccine_Tracker.UI
             InputControls("Disable");
             DisableButtons();
             ResetForm();
+            ResetErrorLbl();
             // Create an instance of the provider form
-            ViewForm ProviderView = new ViewForm();
+            ViewForm ProviderView = new ViewForm(false);
             //// .ShowDialog brings up the form and gives control to the provider form
             //// This calling form will not regain control until ProviderView form is closed
             ProviderView.ShowDialog();
@@ -621,6 +650,8 @@ namespace Covid_Vaccine_Tracker.UI
 
         private void NewPatientItem_Click(object sender, EventArgs e)
         {
+            bool idExist, pprlExist;
+            IsAdd = true;
             // Create a new instance of a patient object
             FreshPatient = new Patient();
             // If new patient menu item is selected enable the controls with Enable methods.
@@ -631,18 +662,21 @@ namespace Covid_Vaccine_Tracker.UI
             EnableAddControls();
             // Clear out any old data on form
             ResetForm();
+            ResetErrorLbl();
 
             try
             {
                 // Instaniate new pprl object
                 PPRL pRL = new PPRL();
 
-                // Generate a random string of length 10 with with 7 digits 0-9 and
-                // 3 letters A-Z
-                GeneratedPatientId = IdGenerator.GenerateId(10, 0, 9, 'A', 'Z');
-                GeneratedPPRL = IdGenerator.GenerateId(10, 0, 9, 'A', 'Z');
+                // Use methods to make sure that while a id is not new ids are generated
+                GetNewPatientId();
+                GetNewPPRL();
+
                 // Set the patient id to newly created id and set textbox to readonly
-                PatientIdTxt.Text = GeneratedPatientId;
+                if (!IdExist)
+                    PatientIdTxt.Text = GeneratedPatientId;
+
                 PatientIdTxt.ReadOnly = true;
             }
             catch (Exception ex)
@@ -654,6 +688,7 @@ namespace Covid_Vaccine_Tracker.UI
         {
             // Clear out any information that could still be on form
             ResetForm();
+            ResetErrorLbl();
             InputControls("Enable");
             EnableUpdateControls();
             // Allow provider to enter a patient id for patient to update
@@ -703,43 +738,53 @@ namespace Covid_Vaccine_Tracker.UI
                     {
                         SetNewPatient(FreshPatient, false);
 
-                        // Check that patient was set so system does not add incorect values or missing values to DB
-                        if (patientCreated)
+                        // If there was an error setting a patient property then ErrorOccured is true
+                        // If ErrorOccured is false then add to db
+                        if (!ErrorOccured)
                         {
-                            // Was the patient added successfully
                             WasSuccess = PatientDB.AddPatient(FreshPatient);
 
                             if (WasSuccess)
                             {
                                 DisplaySuccess("Patient has been succesfully added", appTitle);
-                                // Set PPRL
-                                PPRL pRL = new PPRL();
-                                pRL.Patient_Id = GeneratedPatientId;
-                                pRL.PPRL_Number = GeneratedPPRL;
-                                // Store PPRL
-                                GoodAdd = PPRLDB.AddPPRL(pRL);
+                                // Now check PprlExist flag to double check pprl number does not exist then add to db
+                                if (!PprlExist)
+                                {
+                                    // Set PPRL
+                                    PPRL pRL = new PPRL();
+                                    pRL.Patient_Id = GeneratedPatientId;
+                                    pRL.PPRL_Number = GeneratedPPRL;
+                                    // Store PPRL
+                                    GoodAdd = PPRLDB.AddPPRL(pRL);
 
-                                // If pprl added successful do nothing
-                                // If add is unsuccessful display err Msg
-                                if (!GoodAdd)
-                                    DisplayError("An error occured while storing patient's PPRL", appTitle);
+                                    // If pprl added successful do nothing
+                                    // If add is unsuccessful display err Msg
+                                    if (!GoodAdd)
+                                        DisplayError("An error occured while storing patient's PPRL", appTitle);
+                                }
 
                                 // Disable groupbox and controls if was success
                                 InputControls("Disable");
                                 DisableButtons();
                                 ResetForm();
+                                // Reset the IsAdd flag for next patientAdd
+                                IsAdd = false;
 
                                 // Vaccine form is out of scope for this sprint so display message box notification
                                 // Now call vax form to enter all vaccine information
-                                //VaccineRecordForm VaxForm = new VaccineRecordForm(ActiveProvider, FreshPatient);
-                                //VaxForm.ShowDialog();
+                                // In the future must pass in the provider to the vaccineForm also but for this sprint dont
+                                //VaccineRecordForm VaxForm = new VaccineRecordForm(ActiveProvider, FreshPatient,GeneratedPPRL);
+                                VaccineRecordForm VaxForm = new VaccineRecordForm()
+                                VaxForm.ShowDialog();
 
-                                DisplaySuccess("Next the vaccine record form would display but it is out of scope this sprint", appTitle);
                             }
                             else if (!WasSuccess)
                                 DisplayError("Error patient has not been added", appTitle);
+
                         }
-                        
+                        else
+                            DisplayError("There was an issue creating patient", appTitle);
+
                     }
                     else // If not a valid age display errorMsg with errorPv 
                         SetErrorPv(tbx, OfAge.Item2);
@@ -779,20 +824,25 @@ namespace Covid_Vaccine_Tracker.UI
                         // SetNewPatient takes a patient obj and a bool to determine if action is an update
                         SetNewPatient(existingPatient, true);
 
-                        // Was patient updated successfully
-                        WasSuccess = PatientDB.UpdatePatient(existingPatient);
-
-                        // Display success or error msgs
-                        if (WasSuccess)
+                        if (!ErrorOccured)
                         {
-                            DisplaySuccess("Patient was successfully updated", appTitle);
-                            // Disable groupbox and buttons
-                            InputControls("Disable");
-                            DisableButtons();
-                            ResetForm();
+                            // Was patient updated successfully
+                            WasSuccess = PatientDB.UpdatePatient(existingPatient);
+
+                            // Display success or error msgs
+                            if (WasSuccess)
+                            {
+                                DisplaySuccess("Patient was successfully updated", appTitle);
+                                // Disable groupbox and buttons
+                                InputControls("Disable");
+                                DisableButtons();
+                                ResetForm();
+                            }
+                            else if (!WasSuccess)
+                                DisplayError("Error patient was not updated", appTitle);
                         }
-                        else if (!WasSuccess)
-                            DisplayError("Error patient was not updated", appTitle);
+                        else
+                            DisplayError("There was an error updating patient information", appTitle);
                     }
                     else // Display errorMsg with erroPv
                         SetErrorPv(tbx, OfAge.Item2);

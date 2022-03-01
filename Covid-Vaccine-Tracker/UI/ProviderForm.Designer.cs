@@ -42,6 +42,7 @@ namespace Covid_Vaccine_Tracker.UI
             this.ExtractTxt = new System.Windows.Forms.TextBox();
             this.Race2Cbx = new System.Windows.Forms.ComboBox();
             this.patientGB = new System.Windows.Forms.GroupBox();
+            this.ErrorLbl = new System.Windows.Forms.Label();
             this.DOBpicker = new System.Windows.Forms.DateTimePicker();
             this.StatesCbx = new System.Windows.Forms.ComboBox();
             this.label15 = new System.Windows.Forms.Label();
@@ -78,7 +79,6 @@ namespace Covid_Vaccine_Tracker.UI
             this.ClearBtn = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.ExitBtn = new System.Windows.Forms.ToolStripButton();
-            this.ErrorLbl = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ErrorPv)).BeginInit();
             this.patientGB.SuspendLayout();
@@ -219,6 +219,19 @@ namespace Covid_Vaccine_Tracker.UI
             this.patientGB.TabStop = false;
             this.patientGB.Text = "Patient Information";
             this.patientGB.Visible = false;
+            // 
+            // ErrorLbl
+            // 
+            this.ErrorLbl.AutoSize = true;
+            this.ErrorLbl.Enabled = false;
+            this.ErrorLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ErrorLbl.ForeColor = System.Drawing.Color.Red;
+            this.ErrorLbl.Location = new System.Drawing.Point(450, 48);
+            this.ErrorLbl.Name = "ErrorLbl";
+            this.ErrorLbl.Size = new System.Drawing.Size(493, 20);
+            this.ErrorLbl.TabIndex = 30;
+            this.ErrorLbl.Text = "This error lbl will only be seen if an error occurs with patient properties";
+            this.ErrorLbl.Visible = false;
             // 
             // DOBpicker
             // 
@@ -551,19 +564,6 @@ namespace Covid_Vaccine_Tracker.UI
             this.ExitBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
             this.ExitBtn.ToolTipText = "Exit Application";
             this.ExitBtn.Click += new System.EventHandler(this.ExitBtn_Click);
-            // 
-            // ErrorLbl
-            // 
-            this.ErrorLbl.AutoSize = true;
-            this.ErrorLbl.Enabled = false;
-            this.ErrorLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ErrorLbl.ForeColor = System.Drawing.Color.Red;
-            this.ErrorLbl.Location = new System.Drawing.Point(467, 48);
-            this.ErrorLbl.Name = "ErrorLbl";
-            this.ErrorLbl.Size = new System.Drawing.Size(44, 20);
-            this.ErrorLbl.TabIndex = 30;
-            this.ErrorLbl.Text = "Error";
-            this.ErrorLbl.Visible = false;
             // 
             // ProviderForm
             // 
