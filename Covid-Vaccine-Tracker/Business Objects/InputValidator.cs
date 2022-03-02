@@ -175,7 +175,7 @@ namespace Covid_Vaccine_Tracker.Business_Objects
 
             return (validData, eMsg);
         }
-        public static (bool,string) IsValidVaccineType(string input)
+        public static (bool,string) IsValidVaccineInfo(string input)
         {
             bool validData;
             string eMsg = string.Empty;
@@ -185,12 +185,12 @@ namespace Covid_Vaccine_Tracker.Business_Objects
             if (rgx1.IsMatch(input))
             { 
                 validData = false; 
-                eMsg = "Vaccine Event Id cannot have any symbol characters";
+                eMsg = "Vaccine information cannot have any symbol characters";
             }
             else if (rgx2.IsMatch(input))
             {
                 validData = false; 
-                eMsg = "Vaccine Event Id cannot contain repeating words";
+                eMsg = "Vaccine information cannot contain repeating words";
             }
 
             else
@@ -212,6 +212,22 @@ namespace Covid_Vaccine_Tracker.Business_Objects
             }
             else
                 validData = true;
+
+            return (validData, eMsg);
+        }
+        public static (bool,string) IsValidLotNumber(string input)
+        {
+            bool validData;
+            string eMsg = string.Empty;
+            Regex rgx = new Regex(@"[0-9]{5}?[a-zA-Z]{5}?");
+
+            if (!rgx.IsMatch(input))
+            {
+                validData = false;
+                eMsg = "Invalid format, Lot Number must be in 00000XXXXX format";
+            }
+            else
+                validData = false;
 
             return (validData, eMsg);
         }

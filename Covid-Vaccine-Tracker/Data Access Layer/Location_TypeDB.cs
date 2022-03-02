@@ -49,7 +49,7 @@ namespace Covid_Vaccine_Tracker.Data_Access_Layer
         public static Location_Types GetLocationType(string lType)
         {
             Location_Types location = new Location_Types();
-            string procedure = "[SpGetLocations]";
+            string procedure = "[SpGetLocation]";
             var parameter = new { code = lType };
 
             try

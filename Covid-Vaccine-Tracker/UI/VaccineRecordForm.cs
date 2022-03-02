@@ -22,7 +22,7 @@ namespace Covid_Vaccine_Tracker.UI
         // when form load it extract type needs to be set to PPRL
         Provider ActiveProvider = new Provider();
         Patient CurrentPatient = new Patient();
-        bool ExisitingPatient;
+        bool ExisitingPatient, NeedPPRL;
         Extracts ExtractType = new Extracts();
         string GeneratedVaxEventId, currentPPRL;
         // List to hold all of the combobox values
@@ -38,6 +38,9 @@ namespace Covid_Vaccine_Tracker.UI
         List<Location_Types> lTypes = new List<Location_Types>();
         List<Provider_Suffix> pSuffixes = new List<Provider_Suffix>();
 
+        // Error Occured will be true if the vaccine record object is not created so bad data wont go to db
+        bool ErrorOccured;
+
         public VaccineRecordForm()
         {
             InitializeComponent();
@@ -52,6 +55,7 @@ namespace Covid_Vaccine_Tracker.UI
             // If exisiting patient then doctor enters in Patient id
             // Note before vax record is stored must retrieve the PPRL number
             ExisitingPatient = true;
+            NeedPPRL = true;
         }
         // overloaded method to pass in patient data
         public VaccineRecordForm(Provider currentProvider, Patient patient, string pprl)
@@ -64,7 +68,8 @@ namespace Covid_Vaccine_Tracker.UI
             currentPPRL = pprl;
             // if new patient patient id will be automatically on form.
             // Note before the records is stored must get patient's PPRL from db
-            ExisitingPatient = false;           
+            ExisitingPatient = false;
+            NeedPPRL = false;
         }
         // This is the method to use for sprint 3
         public VaccineRecordForm(Patient patient, string pprl)
@@ -77,6 +82,7 @@ namespace Covid_Vaccine_Tracker.UI
             // if new patient patient id will be automatically on form.
             // Note before the records is stored must get patient's PPRL from db
             ExisitingPatient = false;
+            NeedPPRL = false;
         }
         private void AddControl(string command)
         {
@@ -213,6 +219,60 @@ namespace Covid_Vaccine_Tracker.UI
             AdminStateTxt.Text = string.Empty;
             AdminZipTxt.Text = string.Empty;
             ProviderSuffixCbx.SelectedIndex = -1;           
+        }
+        private void SetVaccineRecord(VaccineRecord vaxRecord)
+        {
+            int CbxIndex;
+
+            try
+            {
+                // Vaccine groupbox
+                vaxRecord.Extract_Type = ExtractTxt.Text.Trim();
+                vaxRecord.Vaccine_Event_Id = VaxEventIdTxt.Text.Trim();
+                // set combox values use list and cbx index to save DB calls
+                CbxIndex = VaxTypeCbx.SelectedIndex;
+                vaxRecord.Vaccine_Type = vTypes[CbxIndex].Type_CVX;
+                CbxIndex = VaxProductCbx.SelectedIndex;
+                vaxRecord.Vaccine_Product = vProducts[CbxIndex].Product_NDC;
+                CbxIndex = VaxManufacturerCbx.SelectedIndex;
+                vaxRecord.Vaccine_Manufacturer = vManufacturers[CbxIndex].Manufactuer;
+                vaxRecord.Lot_Number = LotNumberTxt.Text.Trim();
+                vaxRecord.Vaccine_Experation_Date = ExperationDateDp.Value;
+                vaxRecord.Administration_Date = DateAdminDp.Value;
+                // Patient groupbox
+                CbxIndex = ComorbitiyCbx.SelectedIndex;
+                vaxRecord.Comorbidity_Status = resp1[CbxIndex].Response_Type;
+                CbxIndex = SerologyCbx.SelectedIndex;
+                vaxRecord.Serology_Results = resp2[CbxIndex].Response_Type;
+                CbxIndex = DoseNumberCbx.SelectedIndex;
+                vaxRecord.Dose_Number = doses[CbxIndex].Code;
+                CbxIndex = SeriesCompleteCbx.SelectedIndex;
+                vaxRecord.Vaccine_Series_Complete = resp3[CbxIndex].Response_Type;
+                CbxIndex = AdminSiteCbx.SelectedIndex;
+                vaxRecord.Vaccine_Admin_Site = vAdminSites[CbxIndex].Admin_Site;
+                CbxIndex = AdminRouteCbx.SelectedIndex;
+                vaxRecord.Vaccine_Admin_Route = vRoutes[CbxIndex].Route;
+                // Check if pprl was passed into constructor or if need to retireve pprl from DB
+                if (NeedPPRL)
+                    vaxRecord.PPRL = PPRLDB.GetPPRLNumber(IdTxt.Text.Trim());
+                else
+                    vaxRecord.PPRL = IdTxt.Text.Trim();
+                // Provider groupbox
+                vaxRecord.Responsible_Organization = OrganizationTxt.Text.Trim();
+                vaxRecord.Administrated_Location = AdminLocTxt.Text.Trim();
+                CbxIndex = LocTypeCbx.SelectedIndex;
+                vaxRecord.Administrated_Loc_Type = lTypes[CbxIndex].Location_Type;
+                vaxRecord.Admin_Street_Address = AdminStreetTxt.Text.Trim();
+                vaxRecord.Admin_City = AdminCityTxt.Text.Trim();
+                vaxRecord.Admin_County = AdminCountyTxt.Text.Trim();
+                vaxRecord.Admin_State = AdminStateTxt.Text.Trim();
+                vaxRecord.Admin_Zip = AdminZipTxt.Text;
+                CbxIndex = ProviderSuffixCbx.SelectedIndex;
+                vaxRecord.Admin_Suffix = pSuffixes[CbxIndex].Code;
+                vaxRecord.Vtcks_Pin = VtckPinTxt.Text.Trim();
+            }
+            catch(Exception ex)
+            { throw ex; }
         }
         private void GetNewVaxEventId()
         {

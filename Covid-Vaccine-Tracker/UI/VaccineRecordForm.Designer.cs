@@ -221,7 +221,7 @@ namespace Covid_Vaccine_Tracker.UI
             // LotNumberTxt
             // 
             this.LotNumberTxt.Location = new System.Drawing.Point(36, 149);
-            this.LotNumberTxt.Mask = "0000LLLL";
+            this.LotNumberTxt.Mask = "00000LLLLL";
             this.LotNumberTxt.Name = "LotNumberTxt";
             this.LotNumberTxt.Size = new System.Drawing.Size(83, 24);
             this.LotNumberTxt.TabIndex = 11;
@@ -535,9 +535,9 @@ namespace Covid_Vaccine_Tracker.UI
             this.IDlbl.AutoSize = true;
             this.IDlbl.Location = new System.Drawing.Point(402, 80);
             this.IDlbl.Name = "IDlbl";
-            this.IDlbl.Size = new System.Drawing.Size(68, 18);
+            this.IDlbl.Size = new System.Drawing.Size(129, 18);
             this.IDlbl.TabIndex = 12;
-            this.IDlbl.Text = "Patient Id";
+            this.IDlbl.Text = "Patient Id or PPRL";
             // 
             // OrganizationTxt
             // 
