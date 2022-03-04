@@ -40,6 +40,7 @@ namespace Covid_Vaccine_Tracker.UI
 
         // Error Occured will be true if the vaccine record object is not created so bad data wont go to db
         bool ErrorOccured;
+        (bool, string) FormIsValid;
 
         public VaccineRecordForm()
         {
@@ -184,8 +185,10 @@ namespace Covid_Vaccine_Tracker.UI
                 emsg = "Must select a vaccine type";
                 tbx = 2;
             }
-            // The rest of validation goes here
 
+            // The rest of validation goes here
+            // Check all textboxes for string.isnullorempty() and Check comob-boxes for selected index <= -1
+            // The vaccine record class and the identifying vaccine record class will handle other validation 
 
             return (valid, emsg);
         }
@@ -292,9 +295,11 @@ namespace Covid_Vaccine_Tracker.UI
             // Note when Vaccine is added and it is a existing patient must get the patients id from txtbox
             // and then use the Patient id to retrieve the patient's PPRL and then store the vax record with the pprl
 
-
-
-
+            // This section needs to be coded
+            // and the Checkform method needs to be finshed 
+            // Check Providerform for a reference
+            // CheckForm() line 188 ish
+            
             // At the end of the Add event these things must happen inorder to allow a provider to keep entering 
             // vaccine records for existing patients
             // 1) call ResetInputs and pass in true to clear out the ids

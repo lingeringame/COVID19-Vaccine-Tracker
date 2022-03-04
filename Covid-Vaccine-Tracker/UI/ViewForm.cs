@@ -151,56 +151,56 @@ namespace Covid_Vaccine_Tracker.UI
         {
             // Create lists that will store respective record type
             List<VaccineRecord> vaccineRecords = new List<VaccineRecord>();
-            (bool, string) isValid;
-            int Tbx = -1;
+            //(bool, string) isValid;
+            //int Tbx = -1;
             // determine the view selected index vale then get data from the database and then stores it in a list
-            try
-            {
-                switch (indx)
-                {
-                    case 0:
-                        vaccineRecords = VaccineRecordDB.GetVaccineRecords_D();
-                        break;
-                    case 1:
-                        vaccineRecords = VaccineRecordDB.GetVaccinesBySeriesStatus_D("Yes");
-                        break;
-                    case 2:
-                        vaccineRecords = VaccineRecordDB.GetVaccinesBySeriesStatus_D("No");
-                        break;
-                    case 3:
-                        isValid = CheckForm(ref Tbx);
-                        if (isValid.Item1)
-                        {
-                            string doseNumber = SearchValTxt.Text.Trim();
-                            vaccineRecords = VaccineRecordDB.GetVaccinesByDose_D(doseNumber);
-                        }
-                        else
-                            SetErrorPv(Tbx, isValid.Item2);
-                        break;
-                    case 4:
-                        isValid = CheckForm(ref Tbx);
-                        if (isValid.Item1)
-                        {
-                            string city = SearchValTxt.Text.Trim();
-                            vaccineRecords = VaccineRecordDB.GetVaccinesByCity_D(city);
-                        }
-                        else
-                            SetErrorPv(Tbx, isValid.Item2);
-                        break;
-                    case 5:
-                        isValid = CheckForm(ref Tbx);
-                        if (isValid.Item1)
-                        {
-                            string county= SearchValTxt.Text.Trim();
-                            vaccineRecords = VaccineRecordDB.GetVaccineByCounty_D(county);
-                        }
-                        else
-                            SetErrorPv(Tbx, isValid.Item2);
-                        break;
-                }
-            }
-            catch (Exception ex)
-            { throw ex; }
+            //try
+            //{
+            //    switch (indx)
+            //    {
+            //        case 0:
+            //            vaccineRecords = VaccineRecordDB.GetVaccineRecords_D();
+            //            break;
+            //        case 1:
+            //            vaccineRecords = VaccineRecordDB.GetVaccinesBySeriesStatus_D("Yes");
+            //            break;
+            //        case 2:
+            //            vaccineRecords = VaccineRecordDB.GetVaccinesBySeriesStatus_D("No");
+            //            break;
+            //        case 3:
+            //            isValid = CheckForm(ref Tbx);
+            //            if (isValid.Item1)
+            //            {
+            //                string doseNumber = SearchValTxt.Text.Trim();
+            //                vaccineRecords = VaccineRecordDB.GetVaccinesByDose_D(doseNumber);
+            //            }
+            //            else
+            //                SetErrorPv(Tbx, isValid.Item2);
+            //            break;
+            //        case 4:
+            //            isValid = CheckForm(ref Tbx);
+            //            if (isValid.Item1)
+            //            {
+            //                string city = SearchValTxt.Text.Trim();
+            //                vaccineRecords = VaccineRecordDB.GetVaccinesByCity_D(city);
+            //            }
+            //            else
+            //                SetErrorPv(Tbx, isValid.Item2);
+            //            break;
+            //        case 5:
+            //            isValid = CheckForm(ref Tbx);
+            //            if (isValid.Item1)
+            //            {
+            //                string county= SearchValTxt.Text.Trim();
+            //                vaccineRecords = VaccineRecordDB.GetVaccineByCounty_D(county);
+            //            }
+            //            else
+            //                SetErrorPv(Tbx, isValid.Item2);
+            //            break;
+            //    }
+            //}
+            //catch (Exception ex)
+            //{ throw ex; }
 
             return vaccineRecords;
         }
@@ -214,6 +214,8 @@ namespace Covid_Vaccine_Tracker.UI
             (bool, string) isValid;
             int Tbx = -1;
             // determine the view selected index vale then get data from the database and then stores it in a list
+
+            // Double check that the selected index matches the correct method to be called
             try
             {
                 switch (indx)
@@ -283,6 +285,7 @@ namespace Covid_Vaccine_Tracker.UI
             // Create a list to hold patient objs
             List<Patient> patientRecords = new List<Patient>();
 
+            //double check that these call the correct methods
             switch (indx)
             {
                 case 7: // Patient information
@@ -385,6 +388,8 @@ namespace Covid_Vaccine_Tracker.UI
         }
         private void ViewsCbx_SelectedIndexChanged(object sender, EventArgs e)
         {
+            // double check that these are the correct selected index values
+
             // If provider wants to view patient vaccine info or patient info display patient id txtbox
             if (!IsCdcUser)
             {

@@ -774,7 +774,7 @@ namespace Covid_Vaccine_Tracker.UI
                                 // Now call vax form to enter all vaccine information
                                 // In the future must pass in the provider to the vaccineForm also but for this sprint dont
                                 //VaccineRecordForm VaxForm = new VaccineRecordForm(ActiveProvider, FreshPatient,GeneratedPPRL);
-                                VaccineRecordForm VaxForm = new VaccineRecordForm()
+                                VaccineRecordForm VaxForm = new VaccineRecordForm();
                                 VaxForm.ShowDialog();
 
                             }

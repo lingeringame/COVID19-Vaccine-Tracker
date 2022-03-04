@@ -267,7 +267,7 @@ namespace Covid_Vaccine_Tracker.Business_Objects
             {
                 try
                 {
-                    (bool, string) validData = InputValidator.IsValidVaccineType(value);
+                    (bool, string) validData = InputValidator.IsValidVaccineInfo(value);
 
                     if (value.Length > 150)
                         throw new Exception("Vaccine type must be 150 characters or less");
