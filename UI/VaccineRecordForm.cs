@@ -538,7 +538,6 @@ namespace Covid_Vaccine_Tracker.UI
         }
         private void AddBtn_Click(object sender, EventArgs e)
         {
-            ErrorOccured = false;
             ResetErrorPv();
             vaxRecord = new VaccineRecord();
             GetNewVaxEventId();
